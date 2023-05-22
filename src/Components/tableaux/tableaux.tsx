@@ -427,7 +427,7 @@ return (
                     data-placement="top"
                     title="déarchiver"
                   >
-                    <span className={` ${!etat ? "" : "cacher"}`}>
+                    <span className={` ${etat == 0 ? "" : "cacher"}`}>
                       <svg
                         onClick={() => {
                           archiver(true, user._id);
@@ -449,7 +449,7 @@ return (
                    **********************************************************/}
                   <div
                     className={`flex justify-center items-center gap-2 ${
-                      etat ? "" : "cacher"
+                      etat == 1 ? "" : "cacher"
                     }`}
                   >
                     <span
