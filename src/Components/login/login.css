@@ -1,0 +1,13 @@
+ 
+  #body {
+    background-image: url('src/assets/parking-couvert.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+  } 
+  #login-form{
+    opacity: 0.85;
+  }
+  .cacher{
+    display: none;
+  }
