@@ -20,7 +20,7 @@ function Tableaux  (){
     const [recherche, setRecherche] = useState<string>("");
     const [introuvable, setIntrouvable] = useState<boolean>(false);
     const [errormessage, setErrormessage] = useState<string>("");
-    const [etat, setEtat] = useState<number>("1");
+    const [etat, setEtat] = useState<number>(1);
     const [ajour, setAjour] = useState<boolean>(true);
     {
       /*  FOR PAGINATION */
@@ -192,10 +192,10 @@ function Tableaux  (){
        **************************************LES LIENS ARCHIVÉ ET DESARCHIVE********************************
        ***************************************************************************************************** */
       const optionActive = () => {
-        setEtat("1");
+        setEtat(1);
       };
       const optionArchive = () => {
-        setEtat("0");
+        setEtat(0);
       };
     
       /* *********************************************************************************************************
@@ -232,7 +232,7 @@ function Tableaux  (){
     
         const data = await response.json();
         //console.log(data);
-        setEtat(true);
+        setEtat(1);
         setModalShow(false);
       };
       /* *********************************************************************************************************
@@ -245,19 +245,14 @@ function Tableaux  (){
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         };
-        let prenom, nom, email;
-        data.prenom == "" ? (prenom = defaultprenom) : (prenom = data.prenom);
-        data.nom == "" ? (nom = defaultnom) : (nom = data.nom);
-        data.email == "" || data.email == defaultemail
-          ? (email = undefined)
-          : (email = data.email);
+    
       
-        console.log(email);
+    
     
         const bodyContent = JSON.stringify({
-          prenom: prenom,
-          nom: nom,
-          email: email,
+          prenom: data.prenom,
+          nom: data.nom,
+          email: data.email,
         
         });
     
@@ -277,7 +272,7 @@ function Tableaux  (){
         } else {
           setErrormessage("");
           reset();
-          setEtat(true);
+          setEtat(1);
           showSuccessAlert();
           ajour ? setAjour(false) : setAjour(true);
         }
@@ -461,7 +456,7 @@ return (
                       <svg
                         onClick={() => {
                           handleShow(
-                            user.id,
+                            user._id,
                             user.prenom,
                             user.nom,
                             user.email

@@ -18,6 +18,4 @@ export class AuthService {
     //signature du token de l'utilisateur
     return { access_token: this.jwtService.sign(payload) };
   }
-
-  
 }

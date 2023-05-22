@@ -43,8 +43,8 @@ const Login = () => {
           }),
         })
           .then((res) => res.json())
-          .then((res) => {
-            console.log(res);
+          .then(async (res) => {
+            //console.log(res);
             if (res.message)
             {
               setError(res.message)
@@ -54,28 +54,31 @@ const Login = () => {
               }, 2000);
             }
             else {console.log(res)
-              localStorage.setItem("id", res.id);
-              localStorage.setItem("email", res.email);
-              localStorage.setItem("role", res.role);
-              localStorage.setItem("prenom", res.prenom);
+              let headersList = {
+                "Accept": "*/*",
+                "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+                "Authorization": `Bearer ${res.access_token}`
+               }
+               
+               let response = await fetch("http://localhost:3001/auth/profile", { 
+                 method: "GET",
+                 headers: headersList
+               });
+               
+               let data = await response.json();
+               console.log(data);
+               
+              localStorage.setItem("id", data._id);
+              localStorage.setItem("email", data.email);
+              localStorage.setItem("role", data.role);
+             /*  localStorage.setItem("prenom", res.prenom);
               localStorage.setItem("nom", res.nom);
-              localStorage.setItem("rfid", res.rfid);
-
-            navigate("/Dashboard")
+              localStorage.setItem("rfid", res.rfid); */
+              
+               
+              navigate("/Dashboard") 
             }
             
-            if (res.correct == false) {
-              setError(res.message);
-            } else {
-              localStorage.setItem("id", res.id);
-              localStorage.setItem("token", res.access_token);
-              localStorage.setItem("role", res.role);
-              localStorage.setItem("prenom", res.prenom);
-              localStorage.setItem("nom", res.nom);
-              localStorage.setItem("email", res.email);
-              localStorage.setItem("rfid", res.rfid);
-              navigate ("/Dashboard")
-            } 
           });
       };
     
